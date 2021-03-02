@@ -19,17 +19,17 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Apostas
+                        Bolões
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Cadastrar Aposta</a>
-                        <a class="dropdown-item" href="#">Ver Apostas</a>
+                        <a class="dropdown-item" href="{{route('apostas.index')}}">Ver Bolões</a>
+                        <a class="dropdown-item" href="{{route('apostas.create')}}">Cadastrar Bolão</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Painel Adminstrativo</a>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('times.index')}}">Cadastrar Time</a>
+                    <a class="nav-link" href="{{route('times.index')}}">Times</a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">

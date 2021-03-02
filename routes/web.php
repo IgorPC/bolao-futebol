@@ -21,6 +21,10 @@ Route::prefix('/adm')->middleware('auth')->group(function (){
     Route::put('/times/{id}', 'TimeController@update')->name('times.update');
     Route::post('/times-buscar', 'TimeController@find')->name('times.find');
 
+    Route::get('/apostas', 'ApostaController@index')->name('apostas.index');
+    Route::get('/apostas-cadastrar', 'ApostaController@create')->name('apostas.create');
+    Route::post('/apostas', 'ApostaController@store')->name('apostas.store');
+
     Route::get('/adm/logout', 'AutenticacaoController@logout')->name('a.logout');
 });
 
