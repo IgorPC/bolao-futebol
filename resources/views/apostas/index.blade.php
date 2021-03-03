@@ -23,23 +23,21 @@
         <button type="submit" class="btn btn-primary">Buscar <span class="ml-2"><i class="fas fa-search"></i></span></button>
     </form>
     <hr>
-    <div class="accordion" id="accordionExample">
+    <ul class="list-group">
         @foreach($apostas as $key => $aposta)
-        <div class="card mt-1">
-            <div class="card-header" id="heading{{$key}}">
-                <h2 class="mb-0">
-                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse{{$key}}" aria-expanded="true" aria-controls="collapseOne">
-                        {{$aposta->nome}}
-                    </button>
-                </h2>
-            </div>
-
-            <div id="collapse{{$key}}" class="collapse" aria-labelledby="heading{{$key}}" data-parent="#accordionExample">
-                <div class="card-body">
-                    {{$aposta->data_jogo}}
-                </div>
-            </div>
-        </div>
+                <li class="list-group-item">
+                    @if($aposta->status == 'aberto')
+                        <span class="badge badge-success float-left mr-4 mt-1">{{$aposta->status}} </span>
+                    @elseif($aposta->status == 'encerrado')
+                        <span class="badge badge-dark float-left mr-4 mt-1">{{$aposta->status}} </span>
+                    @elseif($aposta->status == 'cancelado')
+                        <span class="badge badge-danger float-left mr-4 mt-1">{{$aposta->status}} </span>
+                    @else
+                        <span class="badge badge-warning float-left mr-4 mt-1">{{$aposta->status}} </span>
+                    @endif
+                    <a style="text-decoration: none; color: black" href="{{route('apostas.show', ['id' => $aposta->id])}}">{{$aposta->nome}}</a>
+                    <span class="badge badge-primary badge-pill float-right mt-1">0</span>
+                </li>
         @endforeach
-    </div>
+    </ul>
 @endsection

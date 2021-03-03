@@ -24,6 +24,11 @@ Route::prefix('/adm')->middleware('auth')->group(function (){
     Route::get('/apostas', 'ApostaController@index')->name('apostas.index');
     Route::get('/apostas-cadastrar', 'ApostaController@create')->name('apostas.create');
     Route::post('/apostas', 'ApostaController@store')->name('apostas.store');
+    Route::get('/apostas/{id}', 'ApostaController@show')->name('apostas.show');
+    Route::put('/apostas/{id}', 'ApostaController@update')->name('apostas.update');
+
+    Route::post('/aposta-jogo/{id}', 'ApostaJogosController@store')->name('aposta.jogo.store');
+    Route::get('/aposta-jogo/{id}', 'ApostaJogosController@show')->name('aposta.jogo.show');
 
     Route::get('/adm/logout', 'AutenticacaoController@logout')->name('a.logout');
 });
