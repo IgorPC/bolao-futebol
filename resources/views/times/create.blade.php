@@ -35,6 +35,7 @@
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
+            <small id="imagemHelp" class="form-text text-muted">Busque a imagem nesse <a style="text-decoration: none;color: blue" href="https://worldvectorlogo.com/" target="_blank">site</a>.</small>
         </div>
         <button type="submit" class="btn btn-outline-primary">Cadastrar</button>
     </form>

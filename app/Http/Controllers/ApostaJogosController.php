@@ -32,7 +32,8 @@ class ApostaJogosController extends Controller
                 'aposta_id' => $data['aposta_id'],
                 'time1_id' => $data['time1'],
                 'time2_id' => $data['time2'],
-                'placar_id' => 'NULL'
+                'placar_id' => 'NULL',
+                'status_jogo_id' => 4
             ]);
             if($apJogo){
                 session()->flash('sucesso', 'O jogo foi adicionado ao bolao com sucesso!');
@@ -53,6 +54,31 @@ class ApostaJogosController extends Controller
         if($apJogo){
             $data = $apJogo->getOne();
             return view('apostas.apostas-jogo', compact('data'));
+        }else{
+            return redirect()->back();
+        }
+    }
+
+    public function delete($id)
+    {
+        $apJogo = $this->apJogo->find($id);
+        if($apJogo){
+            $aposta = Aposta::find($apJogo->aposta_id);
+            if($aposta){
+                if($aposta->status_jogo_id != 4){
+                    session()->flash('error', 'Você nao pode cancelar um jogo em andamento ou que ja esta finalizado!');
+                    return redirect()->route('apostas.index');
+                }elseif ($apJogo->status_jogo_id != 4){
+                    session()->flash('error', 'Você nao pode cancelar um jogo em andamento ou que ja esta finalizado!');
+                    return redirect()->route('apostas.index');
+                }else{
+                    $apJogo->delete();
+                    session()->flash('sucesso', 'Jogo apagado com sucesso!');
+                    return redirect()->route('apostas.index');
+                }
+            }else{
+                return redirect()->back();
+            }
         }else{
             return redirect()->back();
         }

@@ -39,9 +39,13 @@
             </div>
         </div>
     </div>
-    <table id="gamble-table" class="table table-striped mt-4 text-center">
+    <hr>
+    <p class="text-center">
+        {{$bet->nome}} |
+        <span style="color: @if($bet->status == 'andamento') yellowgreen @elseif($bet->status == 'encerrado') blue @else red @endif">{{$bet->status}}</span></p>
+    <table id="gamble-table" class="table table-striped mt-4">
         <thead>
-        <tr>
+        <tr class="text-center">
             <th scope="col"><i class="fas fa-futbol"></i></th>
             <th scope="col">VIT | EMPT | VIT</th>
             <th scope="col"><i class="far fa-futbol"></i></th>
@@ -50,8 +54,8 @@
         <tbody>
         @foreach($gambles as $key => $gamble)
         <tr>
-            <td><span class="mr-2"><img src="{{$gamble['time1']['imagem']}}" alt="" width="20" height="24"></span><strong>{{$gamble['time1']['sigla']}}</strong></td>
-            <td>
+            <td class="float-left"><span class="mr-2"><img src="{{$gamble->time1_imagem}}" alt="" width="20" height="24"></span><strong>{{$gamble->time1_sigla}}</strong></td>
+            <td class="text-center">
                 <div class="form-check form-check-inline">
                     <input disabled class="form-check-input ml-3 checkInput" type="checkbox" id="inlineCheckbox1" value="{{$key+1}}-A">
                 </div>
@@ -62,13 +66,14 @@
                     <input disabled class="form-check-input checkInput" type="checkbox" id="inlineCheckbox3" value="{{$key+1}}-C">
                 </div>
             </td>
-            <td><strong>{{$gamble['time2']['sigla']}}</strong><span class="ml-2"><img src="{{$gamble['time2']['imagem']}}" alt="" width="20" height="24"></span></td>
+            <td class="float-right"><strong>{{$gamble->time2_sigla}}</strong><span class="ml-2"><img src="{{$gamble->time2_imagem}}" alt="" width="20" height="24"></span></td>
         </tr>
         @endforeach
         </tbody>
     </table>
     <form id="form-submit" action="{{route('apostar')}}" method="POST">
         @csrf
+        <input type="text" hidden name="resp_jogo" id="resp_jogo" value="{{$bet->id}}">
         <input type="text" hidden name="resp_gamble" id="resp_gamble">
         <input type="text" hidden name="resp_value" id="resp_value">
         <input type="text" hidden name="resp_name" id="resp_name">

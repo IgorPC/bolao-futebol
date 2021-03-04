@@ -13,12 +13,12 @@
             <div class="row">
                 @if($data->status == 'aguardando')
                     <div class="col-md-6 mb-2">
-                        <a id="publish" href="#" class="btn btn-outline-success w-100">Publicar bolão</a>
+                        <a id="publish" href="{{route('apostas.publish', ['id' => $data->id])}}" class="btn btn-outline-success w-100">Publicar bolão</a>
                     </div>
                     <div class="col-md-6">
                         <a id="cancel" href="#" class="btn btn-outline-danger w-100">Cancelar bolão</a>
                     </div>
-                @elseif($data->status == 'aberto')
+                @elseif($data->status == 'andamento')
                     <div class="col-md-6 mb-2">
                         <a id="finish" href="#" class="btn btn-outline-primary w-100">Encerrar bolão</a>
                     </div>

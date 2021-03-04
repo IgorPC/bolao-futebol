@@ -36,7 +36,7 @@
         </li>
         @endforeach
         <hr class="mt-4">
-        @if(count($pagination[0]) >= 10)
+        @if(count($times) >= 10 || $pagination['current'] != 1)
             <nav aria-label="Page navigation example mt-2">
                 <ul class="pagination">
                     <li class="page-item"><a class="page-link" href="{{$pagination['url']}}/?page={{$pagination['current'] - 1}}">Anterior</a></li>

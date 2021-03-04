@@ -95,4 +95,20 @@ class ApostaController extends Controller
             return redirect()->back();
         }
     }
+
+    public function publish($id)
+    {
+        $aposta = $this->aposta->find($id);
+        if($aposta){
+            if($aposta->publish()){
+                session()->flash('sucesso', 'Bolão publicado com sucesso!');
+                return redirect()->back();
+            }else{
+                session()->flash('error', 'Ouve um erro ao publicar o bolao!');
+                return redirect()->back();
+            }
+        }else{
+            return redirect()->back();
+        }
+    }
 }

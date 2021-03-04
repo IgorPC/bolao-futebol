@@ -8,6 +8,7 @@
     <h1>Bolões</h1>
     <hr>
     @include('mensagens.sucesso')
+    @include('mensagens.error')
     <form method="POST" action="{{route('times.find')}}">
         @csrf
         <div class="form-group">
@@ -26,7 +27,7 @@
     <ul class="list-group">
         @foreach($apostas as $key => $aposta)
                 <li class="list-group-item">
-                    @if($aposta->status == 'aberto')
+                    @if($aposta->status == 'andamento')
                         <span class="badge badge-success float-left mr-4 mt-1">{{$aposta->status}} </span>
                     @elseif($aposta->status == 'encerrado')
                         <span class="badge badge-dark float-left mr-4 mt-1">{{$aposta->status}} </span>

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class ApostaJogos extends Model
 {
@@ -20,7 +21,7 @@ class ApostaJogos extends Model
         $data = $query -> leftJoin('apostas', 'aposta_jogos.aposta_id', '=', 'apostas.id')
                        -> leftJoin('times as time1', 'aposta_jogos.time1_id', '=', 'time1.id')
                        -> leftJoin('times as time2', 'aposta_jogos.time2_id', '=', 'time2.id')
-                       -> select('aposta_jogos.id', 'apostas.nome as nome', 'time1.nome as time1', 'time1.imagem as time1_imagem', 'time2.nome as time2', 'time2.imagem as time2_imagem', 'aposta_jogos.placar_id as resultado', 'aposta_jogos.status_jogo_id as status')
+                       -> select('aposta_jogos.id', 'apostas.nome as nome', 'time1.nome as time1', 'time1.sigla as time1_sigla', 'time1.imagem as time1_imagem', 'time2.nome as time2', 'time2.sigla as time2_sigla', 'time2.imagem as time2_imagem', 'aposta_jogos.placar_id as resultado', 'aposta_jogos.status_jogo_id as status')
                        -> where('aposta_jogos.aposta_id', '=', $aposta->id)
                        -> get();
         return $data;
@@ -38,5 +39,17 @@ class ApostaJogos extends Model
                         -> where('aposta_jogos.id', '=', $this->id)
                         -> first();
         return $data;
+    }
+
+    public function publish(Aposta $aposta)
+    {
+        try {
+            foreach ($this->getJogosBolao($aposta) as $jogo){
+                DB::select("UPDATE aposta_jogos SET status_jogo_id = 1 WHERE id = {$jogo->id}");
+            }
+            return true;
+        }catch (\Exception $e){
+            return false;
+        }
     }
 }

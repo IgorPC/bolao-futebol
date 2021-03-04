@@ -3,8 +3,8 @@
 use Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'ApostasController@index')->name('home');
-Route::post('/finalizar-aposta', 'ApostasController@apostar')->name('apostar');
+Route::get('/', 'HomeApostaController@index')->name('home');
+Route::post('/finalizar-aposta', 'HomeApostaController@apostar')->name('apostar');
 
 Route::get('/adm/login', 'AutenticacaoController@login')->name('a.login.view');
 Route::post('/adm/login', 'AutenticacaoController@finalizarLogin')->name('a.login');
@@ -26,9 +26,11 @@ Route::prefix('/adm')->middleware('auth')->group(function (){
     Route::post('/apostas', 'ApostaController@store')->name('apostas.store');
     Route::get('/apostas/{id}', 'ApostaController@show')->name('apostas.show');
     Route::put('/apostas/{id}', 'ApostaController@update')->name('apostas.update');
+    Route::get('/apostas-publish/{id}', 'ApostaController@publish')->name('apostas.publish');
 
     Route::post('/aposta-jogo/{id}', 'ApostaJogosController@store')->name('aposta.jogo.store');
     Route::get('/aposta-jogo/{id}', 'ApostaJogosController@show')->name('aposta.jogo.show');
+    Route::get('/aposta-jogo-delete/{id}', 'ApostaJogosController@delete')->name('aposta.jogo.delete');
 
     Route::get('/adm/logout', 'AutenticacaoController@logout')->name('a.logout');
 });
